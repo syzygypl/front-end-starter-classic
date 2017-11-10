@@ -95,10 +95,10 @@ gulp.task('build', ['clean'], () => {
 });
 
 const watcher = gulp => {
+    gulp.watch(sourcePath+'/assets/**/*', ['assets']);
     gulp.watch(sourcePath+'/styles/**/*.scss', ['styles']);
-    gulp.watch(sourcePath+'/images/**/*', ['images']);
     gulp.watch(sourcePath+'/scripts/**/*', ['scripts']);
-    gulp.watch([sourcePath+'/views/**/*.html.twig', sourcePath+'/**/*.svg'], ['views']).on('change', browserSync.reload);
+    gulp.watch([sourcePath+'/views/**/*.html.twig', sourcePath+'/assets/**/*.svg'], ['views']).on('change', browserSync.reload);
 };
 
 /* Build project & watch for source files changes */
