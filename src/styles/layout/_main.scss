@@ -1,0 +1,34 @@
+.main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  &__inner {
+    position: relative;
+    flex-grow: 1;
+    background: $color-bg-odd;
+    border-bottom: $gutter solid;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: block;
+      height: $gutter*2;
+      border-left: $gutter*2 solid $color-primary;
+    }
+    &::after {
+      right: $gutter*2;
+      border-left-color: $color-secondary;
+    }
+  }
+
+}

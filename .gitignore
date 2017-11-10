@@ -1,0 +1,10 @@
+.DS_Store
+node_modules/
+.idea/
+.idea_modules/
+.sass-cache/
+atlassian-ide-plugin.xml
+.env
+
+/build/
+/web

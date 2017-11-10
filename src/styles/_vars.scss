@@ -1,0 +1,48 @@
+$breakpoints: (
+  xs: 0,
+  sm: 544px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+);
+
+$page-min-width: 320px;
+$page-max-width: 1440px;
+$container-max-width: breakpoint(lg);
+
+$gutter: 10px;
+
+$container-paddings: (
+  xs: $gutter $gutter*2,
+  md: $gutter*2 $gutter*3,
+  lg: $gutter*3 $gutter*4,
+);
+
+$font-sizes: (
+  xs: 14px,
+  md: 16px,
+);
+
+$line-height: 1.5;
+$font-headings: 'Vollkorn SC', serif;
+$font-base: Arial, sans-serif;
+
+$color-bg: darken(white, 5%);
+$color-bg-odd: white;
+$color-text: #393435;
+
+$color-reversed-bg: $color-text;
+$color-reversed-text: $color-bg;
+
+$color-primary: #ef5350;
+$color-secondary: #42a5f5;
+
+$color-link: $color-primary;
+
+// Sections
+
+$header-color-bg: $color-bg-odd;
+$header-color-text: $color-text;
+
+$footer-color-bg: $color-secondary;
+$footer-color-text: white;

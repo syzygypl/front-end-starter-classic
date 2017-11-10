@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <title>Classic - Front-end Starter</title>
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="format-detection" content="telephone=no" />
+  <link rel="stylesheet" href="styles/styles.css" />
+</head>
+
+<body>
+  {% include '_header.html.twig' %}
+  <main class="main">
+    <div class="container main__container">
+      <div class="main__inner">
+        <div class="container">
+          {% include 'sections/_main.html.twig' %}
+        </div>
+      </div>
+    </div>
+  </main>
+  {% include '_footer.html.twig' %}
+
+  <script src="../scripts/app.js"></script>
+</body>
+</html>

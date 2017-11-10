@@ -1,0 +1,13 @@
+.container {
+  display: block;
+  width: 100%;
+  max-width: $container-max-width;
+  margin: 0 auto;
+
+  @each $breakpoint, $paddings in $container-paddings {
+    @include media($breakpoint) {
+      padding: $paddings;
+    }
+  }
+
+}

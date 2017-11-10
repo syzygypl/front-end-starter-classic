@@ -1,0 +1,39 @@
+{
+  "name": "front-end-starter-classic",
+  "private": true,
+  "version": "0.1.0",
+  "author": "SYZYGY Warsaw",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/syzygypl/front-end-starter-classic"
+  },
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "browser-sync": "^2.18.13",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-babel": "^7.0.0",
+    "gulp-cached": "^1.1.1",
+    "gulp-clean-css": "^3.9.0",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.1",
+    "gulp-twig": "^1.1.1",
+    "gulp-watch": "^4.3.11",
+    "normalize.css": "^7.0.0",
+    "sierotki": "^1.2.1",
+    "webpack": "^3.8.1",
+    "webpack-stream": "^4.0.0"
+  },
+  "scripts": {
+    "build": "gulp build",
+    "start": "gulp serve",
+    "clean": "gulp clean",
+    "postinstall": "yarn build"
+  }
+}

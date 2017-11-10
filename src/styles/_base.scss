@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css?family=Vollkorn+SC:700&subset=latin-ext');
+
+html {
+  height: 100%;
+
+  @each $breakpoint, $font-size in $font-sizes {
+    @include media($breakpoint) {
+      font-size: $font-size;
+    }
+  }
+}
+
+body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  min-width: $page-min-width;
+  background: $color-bg;
+  font-family: $font-base;
+  line-height: $line-height;
+  color: $color-text;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+strong {
+  font-weight: bold;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+svg {
+  max-height: 100%;
+  fill: currentColor;
+}
