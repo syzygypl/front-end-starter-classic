@@ -24,7 +24,7 @@ gulp.task('assets', () => {
 gulp.task('views', () => {
     gulp.src([sourcePath+'/views/**/*.html.twig', '!'+sourcePath+'/views/**/_*.html.twig'])
         .pipe($.twig(twigConfig))
-        .on('error', (err) => {
+        .on('error', err => {
             console.log('Twig error:', err.message);
             browserSync.notify(err.message);
             this.emit('end');
@@ -54,7 +54,7 @@ gulp.task('scripts', () => {
             },
             plugins: [new webpack.optimize.UglifyJsPlugin({ sourceMap: true })],
         }, webpack))
-        .on('error', (err) => {
+        .on('error', err => {
             console.log('JS error:', err.message);
             browserSync.notify(err.message);
             this.emit('end');
@@ -70,7 +70,7 @@ gulp.task('styles', () => {
         .pipe($.sass({
             includePaths: ['node_modules/']
         }))
-        .on('error', (err) => {
+        .on('error', err => {
             console.log('Sass error:', err.message);
             browserSync.notify(err.message);
             this.emit('end');
@@ -87,16 +87,14 @@ gulp.task('styles', () => {
 });
 
 /* Build paths cleaning */
-gulp.task('clean', () => {
-    return del.sync([buildPath])
-});
+gulp.task('clean', () => del.sync([buildPath]));
 
 /* Build tasks  */
 gulp.task('build', ['clean'], () => {
     gulp.start(['assets', 'views', 'styles', 'scripts']);
 });
 
-var watcher = (gulp) => {
+const watcher = gulp => {
     gulp.watch(sourcePath+'/styles/**/*.scss', ['styles']);
     gulp.watch(sourcePath+'/images/**/*', ['images']);
     gulp.watch(sourcePath+'/scripts/**/*', ['scripts']);

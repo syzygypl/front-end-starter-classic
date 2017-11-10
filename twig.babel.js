@@ -4,7 +4,7 @@ export default {
   functions: [{}],
   filters: [{
     name: "sierotki",
-    func: function (text) {
+    func: text => {
       return Sierotki.orphansFix(text);
     }
   }]
