@@ -9,17 +9,20 @@ const $ = gulpLoadPlugins();
 
 import twigConfig from './twig.babel.js';
 
+const sourcePath = './src';
+const buildPath = './web';
+
 /* Copy assets */
 gulp.task('assets', () => {
-  gulp.src(['src/assets/**/*'])
+  gulp.src([sourcePath+'/assets/**/*'])
     .pipe($.cached('assets'))
-    .pipe(gulp.dest('web/assets'))
+    .pipe(gulp.dest(buildPath+'/assets'))
     .pipe(browserSync.stream());
 });
 
 /* Creating HTML views from TWIG files */
 gulp.task('views', () => {
-    gulp.src(['src/views/**/*.html.twig', '!src/views/**/_*.html.twig'])
+    gulp.src([sourcePath+'/views/**/*.html.twig', '!'+sourcePath+'/views/**/_*.html.twig'])
         .pipe($.twig(twigConfig))
         .on('error', (err) => {
             console.log('Twig error:', err.message);
@@ -27,13 +30,13 @@ gulp.task('views', () => {
             this.emit('end');
         })
         .pipe($.rename({ extname: '' })) // clear double file extension
-        .pipe(gulp.dest('web'))
+        .pipe(gulp.dest(buildPath))
         .pipe(browserSync.stream());
 });
 
 /* JS with Babel and minification */
 gulp.task('scripts', () => {
-    gulp.src(['src/scripts/app.js'])
+    gulp.src([sourcePath+'/scripts/app.js'])
         .pipe(webpackStream({
             devtool: 'source-map',
             module: {
@@ -56,13 +59,13 @@ gulp.task('scripts', () => {
             browserSync.notify(err.message);
             this.emit('end');
         })
-        .pipe(gulp.dest('web/scripts'))
+        .pipe(gulp.dest(buildPath+'/scripts'))
         .pipe(browserSync.stream());
 });
 
 /* CSS preprocessor */
 gulp.task('styles', () => {
-    gulp.src('src/styles/styles.scss')
+    gulp.src(sourcePath+'/styles/styles.scss')
         .pipe($.sourcemaps.init())
         .pipe($.sass({
             includePaths: ['node_modules/']
@@ -77,15 +80,15 @@ gulp.task('styles', () => {
         .pipe($.sourcemaps.write('./', {
             addComment: true,
             includeContent: false,
-            sourceRoot: '../../src/styles'
+            sourceRoot: '../../'+sourcePath+'/styles'
         }))
-        .pipe(gulp.dest('web/styles'))
+        .pipe(gulp.dest(buildPath+'/styles'))
         .pipe(browserSync.stream({ match: '**/*.css' }))
 });
 
 /* Build paths cleaning */
 gulp.task('clean', () => {
-    return del.sync(['web'])
+    return del.sync([buildPath])
 });
 
 /* Build tasks  */
@@ -94,10 +97,10 @@ gulp.task('build', ['clean'], () => {
 });
 
 var watcher = (gulp) => {
-    gulp.watch('src/styles/**/*.scss', ['styles']);
-    gulp.watch('src/images/**/*', ['images']);
-    gulp.watch('src/scripts/**/*', ['scripts']);
-    gulp.watch(['src/views/**/*.html.twig', 'src/**/*.svg'], ['views']).on('change', browserSync.reload);
+    gulp.watch(sourcePath+'/styles/**/*.scss', ['styles']);
+    gulp.watch(sourcePath+'/images/**/*', ['images']);
+    gulp.watch(sourcePath+'/scripts/**/*', ['scripts']);
+    gulp.watch([sourcePath+'/views/**/*.html.twig', sourcePath+'/**/*.svg'], ['views']).on('change', browserSync.reload);
 };
 
 /* Build project & watch for source files changes */
@@ -108,7 +111,7 @@ gulp.task('watch', ['build'], () => {
 /* Build project, serve + live reload on changes */
 gulp.task('serve', ['build'], () => {
     watcher(gulp);
-    browserSync.init({ server: 'web' });
+    browserSync.init({ server: buildPath });
 });
 
 /* Default task - build */
