@@ -24,7 +24,6 @@
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.1",
     "gulp-twig": "^1.1.1",
-    "gulp-watch": "^4.3.11",
     "normalize.css": "^7.0.0",
     "sierotki": "^1.2.1",
     "webpack": "^3.8.1",
