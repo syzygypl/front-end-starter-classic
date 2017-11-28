@@ -1,5 +1,6 @@
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
+import runSequence from 'run-sequence';
 import del from 'del';
 import webpack from 'webpack';
 import webpackStream from 'webpack-stream';
@@ -9,12 +10,14 @@ const $ = gulpLoadPlugins();
 
 import twigConfig from './twig.babel.js';
 
+/* CONFIG - START */
 const sourcePath = 'src';
 const buildPath = 'web';
+/* CONFIG - END */
 
 /* Copy assets */
 gulp.task('assets', () => {
-  gulp.src([sourcePath + '/assets/**/*'])
+  return gulp.src([sourcePath + '/assets/**/*'])
     .pipe($.cached('assets'))
     .pipe(gulp.dest(buildPath + '/assets'))
     .pipe(browserSync.stream());
@@ -22,7 +25,7 @@ gulp.task('assets', () => {
 
 /* Creating HTML views from TWIG files */
 gulp.task('views', () => {
-  gulp.src([sourcePath + '/views/**/*.html.twig', '!' + sourcePath + '/views/**/_*.html.twig'])
+  return gulp.src([sourcePath + '/views/**/*.html.twig', '!' + sourcePath + '/views/**/_*.html.twig'])
     .pipe($.twig(twigConfig))
     .on('error', function (err) {
       console.log('Twig error:', err.message);
@@ -36,7 +39,7 @@ gulp.task('views', () => {
 
 /* JS with Babel and minification */
 gulp.task('scripts', () => {
-  gulp.src([sourcePath + '/scripts/app.js'])
+  return gulp.src([sourcePath + '/scripts/app.js'])
     .pipe(webpackStream({
       devtool: 'source-map',
       module: {
@@ -65,7 +68,7 @@ gulp.task('scripts', () => {
 
 /* CSS preprocessor */
 gulp.task('styles', () => {
-  gulp.src(sourcePath + '/styles/styles.scss')
+  return gulp.src(sourcePath + '/styles/styles.scss')
     .pipe($.sourcemaps.init())
     .pipe($.sass({
       includePaths: ['node_modules/']
@@ -90,8 +93,8 @@ gulp.task('styles', () => {
 gulp.task('clean', () => del.sync([buildPath]));
 
 /* Build tasks  */
-gulp.task('build', ['clean'], () => {
-  gulp.start(['assets', 'views', 'styles', 'scripts']);
+gulp.task('build', ['clean'], (cb) => {
+  runSequence(['assets', 'views', 'styles', 'scripts'], cb);
 });
 
 const watcher = gulp => {

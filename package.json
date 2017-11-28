@@ -25,6 +25,7 @@
     "gulp-sourcemaps": "^2.6.1",
     "gulp-twig": "^1.1.1",
     "normalize.css": "^7.0.0",
+    "run-sequence": "^2.2.0",
     "sierotki": "^1.2.1",
     "webpack": "^3.8.1",
     "webpack-stream": "^4.0.0"
