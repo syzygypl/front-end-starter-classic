@@ -30,13 +30,16 @@ and [Yarn](https://yarnpkg.com/lang/en/docs/install/) properly installed. and th
 yarn install
 ```
 
+Source and build paths can be set in `./config.json` file according to the needs.
+Default paths are accordingly `./src` and `./web`.
+
 &nbsp;
 
 ## Development
 
-`yarn start` serves the project and refreshes browser on each source files (`./src`) change
+`yarn start` serves the project and refreshes browser on each source files change
 
-`yarn build` builds the project (to `./web` directory)
+`yarn build` builds the project
 
 `yarn clean` clears build directory
 
