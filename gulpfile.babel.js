@@ -101,7 +101,7 @@ const watcher = gulp => {
   gulp.watch(config.sourcePath + '/assets/**/*', ['assets']);
   gulp.watch(config.sourcePath + '/styles/**/*.scss', ['styles']);
   gulp.watch(config.sourcePath + '/scripts/**/*', ['scripts']);
-  gulp.watch([config.sourcePath + '/views/**/*.html.twig', config.sourcePath + '/assets/**/*.svg'], ['views']).on('change', browserSync.reload);
+  gulp.watch([config.sourcePath + '/views/**/*.html.twig', config.sourcePath + '/assets/**/*.svg'], ['views']);
 };
 
 /* Build project & watch for source files changes */
