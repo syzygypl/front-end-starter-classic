@@ -3,11 +3,13 @@
 The repository includes tools and config to kick-start new projects build upon:
 * [TWIG](https://github.com/twigjs/twig.js) templates
 * [Sass](http://sass-lang.com/) with [autoprefixer](https://github.com/postcss/autoprefixer),
-  [source maps](http://thesassway.com/intermediate/using-source-maps-with-sass) and
-  [minification](https://github.com/jakubpawlowicz/clean-css)
+  [source maps](http://thesassway.com/intermediate/using-source-maps-with-sass),
+  [minification](https://github.com/jakubpawlowicz/clean-css) and
+  [stylelint](https://stylelint.io/) linter
 * JavaScript with [Babel.js](https://babeljs.io/),
-  [ES6](https://github.com/lukehoban/es6features) and
-  [minification](https://github.com/mishoo/UglifyJS2)
+  [ES6](https://github.com/lukehoban/es6features),
+  [minification](https://github.com/mishoo/UglifyJS2) and
+  [ESLint](https://eslint.org/) linterz
 * [BrowserSync](https://www.browsersync.io/)
 
 and can be extremely easy extended with [Symfony](https://symfony.com/) PHP framework.
@@ -43,3 +45,7 @@ Default paths are accordingly `./src` and `./web`.
 `npm run build` builds the project
 
 `npm run deploy` build with production settings
+
+## [Changelog](CHANGELOG.md)
+
+## [License](LICENSE)
