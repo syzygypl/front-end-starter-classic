@@ -9,7 +9,7 @@ module.exports = function () {
 
   return gulp.src([CONFIG.paths.src + "/scripts/*.js"])
     .pipe(webpackStream({
-      config : require(CONFIG.paths.config + '/webpack.config.js')
+      config : require(CONFIG.paths.config + "/webpack.config.js")
     }, webpack))
     .on('error', function (err) {
       console.error('JS error:', err.message);
