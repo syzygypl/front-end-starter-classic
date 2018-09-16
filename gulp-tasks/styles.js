@@ -6,6 +6,7 @@ import sourcemaps from "gulp-sourcemaps";
 import postcss from "gulp-postcss";
 import cleancss from "gulp-clean-css";
 
+import sassJsonImporter from "node-sass-json-importer";
 import autoprefixer from "autoprefixer";
 
 module.exports = function () {
@@ -16,6 +17,7 @@ module.exports = function () {
     .pipe(gulpIf(!CONFIG.isProduction, sourcemaps.init()))
     .pipe(sass({
       includePaths: [CONFIG.paths.node_modules],
+      importer: sassJsonImporter(),
     }))
     .on('error', function (err) {
       console.error('Sass error:', err.message);

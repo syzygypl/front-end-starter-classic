@@ -2,9 +2,9 @@ body {
     display: block;
 }
 
-@import "mixins";
 @import "vars";
-@import "normalize.css/normalize";
+@import "mixins";
+@import "normalize-scss/sass/normalize";
 @import "base";
 
 // Placeholders

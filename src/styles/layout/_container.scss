@@ -4,9 +4,5 @@
     max-width: $container-max-width;
     margin: 0 auto;
 
-    @each $breakpoint, $paddings in $container-paddings {
-        @include media($breakpoint) {
-            padding: $paddings;
-        }
-    }
+    @include each-breakpoint($container-paddings, padding);
 }
