@@ -1,122 +1,38 @@
-import gulp from 'gulp';
-import gulpLoadPlugins from 'gulp-load-plugins';
-import runSequence from 'run-sequence';
-import fs from 'fs';
-import del from 'del';
-import webpack from 'webpack';
-import webpackStream from 'webpack-stream';
-import browserSync from 'browser-sync';
+/* eslint-disable */
 
-import twigConfig from './twig.babel.js';
+import gulp from "gulp";
+import gulpLoadAllTasks from "gulp-load-all-tasks";
+import chalk from "chalk";
+import path from "path";
+import { argv } from "yargs";
 
-const $ = gulpLoadPlugins();
-const config = JSON.parse(fs.readFileSync('./config.json'));
+const ENV = process.env.NODE_ENV || (argv.production && 'production') || 'development';
 
-let isProduction = false;
+export const SRC_RELATIVE_PATH = "src/";
+export const TEMPLATES_RELATIVE_PATH = "src/views/";
+export const DIST_DIRECTORY = ""; // e.g. "frontend"
+export const DIST_RELATIVE_PATH = "web/" + (DIST_DIRECTORY ? `${DIST_DIRECTORY}/` : '');
 
-/* Copy assets */
-gulp.task('assets', () => {
-  return gulp.src([config.sourcePath + '/assets/**/*'])
-    .pipe($.cached('assets'))
-    .pipe(gulp.dest(config.buildPath + '/assets'))
-    .pipe(browserSync.stream());
-});
-
-/* Creating HTML views from TWIG files */
-gulp.task('views', () => {
-  return gulp.src([config.sourcePath + '/views/**/*.html.twig', '!' + config.sourcePath + '/views/**/_*.html.twig'])
-    .pipe($.twig(twigConfig))
-    .on('error', function (err) {
-      console.error('Twig error:', err.message);
-      browserSync.notify(err.message);
-      this.emit('end');
-    })
-    .pipe($.rename({extname: ''})) // clear double file extension
-    .pipe(gulp.dest(config.buildPath))
-    .pipe(browserSync.stream());
-});
-
-/* JS with Babel and minification */
-gulp.task('scripts', () => {
-  return gulp.src([config.sourcePath + '/scripts/app.js'])
-    .pipe(webpackStream({
-      devtool: !isProduction ? 'source-map' : false,
-      module: {
-        loaders: [{
-          test: /\.js$/,
-          loader: 'babel-loader',
-          exclude: /node_modules/,
-          query: {
-            presets: ['es2015', 'stage-3']
-          }
-        }]
-      },
-      output: {
-        filename: 'app.js',
-      },
-      plugins: isProduction ? [new webpack.optimize.UglifyJsPlugin()] : [],
-    }, webpack))
-    .on('error', function (err) {
-      console.error('JS error:', err.message);
-      browserSync.notify(err.message);
-      this.emit('end');
-    })
-    .pipe(gulp.dest(config.buildPath + '/scripts'))
-    .pipe(browserSync.stream());
-});
-
-/* CSS preprocessor */
-gulp.task('styles', () => {
-  return gulp.src(config.sourcePath + '/styles/styles.scss')
-    .pipe($.if(!isProduction, $.sourcemaps.init()))
-    .pipe($.sass({
-      includePaths: ['node_modules/']
-    }))
-    .on('error', function (err) {
-      console.error('Sass error:', err.message);
-      browserSync.notify(err.message);
-      this.emit('end');
-    })
-    .pipe($.autoprefixer('last 2 versions', 'ie9'))
-    .pipe($.if(isProduction, $.cleanCss()))
-    .pipe($.if(!isProduction, $.sourcemaps.write('./', {
-      addComment: true,
-      includeContent: false,
-      sourceRoot: '../../' + config.sourcePath + '/styles'
-    })))
-    .pipe(gulp.dest(config.buildPath + '/styles'))
-    .pipe(browserSync.stream({match: '**/*.css'}))
-});
-
-/* Build paths cleaning */
-gulp.task('clean', () => del.sync([config.buildPath]));
-
-/* Build tasks  */
-gulp.task('build', () => {
-  isProduction = true;
-  gulp.start('default');
-});
-
-const watcher = gulp => {
-  gulp.watch(config.sourcePath + '/assets/**/*', ['assets']);
-  gulp.watch(config.sourcePath + '/styles/**/*.scss', ['styles']);
-  gulp.watch(config.sourcePath + '/scripts/**/*', ['scripts']);
-  gulp.watch([config.sourcePath + '/views/**/*.html.twig', config.sourcePath + '/assets/**/*.svg'], ['views']);
+const CONFIG = {
+  paths: {
+    src: path.resolve(__dirname, `./${SRC_RELATIVE_PATH}`),
+    templates: path.resolve(__dirname, `./${TEMPLATES_RELATIVE_PATH}`),
+    dist: path.resolve(__dirname, argv.dist || `./${DIST_RELATIVE_PATH}`),
+    config: path.resolve(__dirname, "./"),
+    node_modules: path.resolve(__dirname, "./node_modules/"),
+  },
+  env: ENV,
+  isProduction: ENV === 'production',
 };
 
-/* Build project & watch for source files changes */
-gulp.task('watch', ['default'], () => {
-  watcher(gulp);
+console.log(chalk.green('ENV:', CONFIG.env));
+
+gulpLoadAllTasks({
+  CONFIG,
 });
 
-/* Build project, serve + live reload on changes */
-gulp.task('serve', ['default'], () => {
-  watcher(gulp);
-  browserSync.init({server: config.buildPath});
-});
+gulp.task('default',
+  gulp.series('build'),
+);
 
-/* Default task - build */
-gulp.task('default', ['clean'], (cb) => {
-  console.info('Environment:', isProduction ? 'PRODUCTION' : 'DEVELOPMENT');
-  runSequence(['assets', 'views', 'styles', 'scripts'], cb);
-});
+export default CONFIG;
