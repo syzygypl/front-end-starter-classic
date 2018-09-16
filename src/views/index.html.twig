@@ -7,11 +7,14 @@
   <meta name="keywords" content="" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="format-detection" content="telephone=no" />
-  <link rel="stylesheet" href="styles/styles.css" />
+  <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
 </head>
 
 <body>
+  <div class="icon-sprite" data-icon-sprite="{{ asset('assets/icons.svg') }}"></div>
+
   {% include '_header.html.twig' %}
+
   <main class="main">
     <div class="container main__container">
       <div class="main__inner">
@@ -21,8 +24,9 @@
       </div>
     </div>
   </main>
+
   {% include '_footer.html.twig' %}
 
-  <script src="../scripts/app.js"></script>
+  <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>

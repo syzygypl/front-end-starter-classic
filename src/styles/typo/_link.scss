@@ -1,10 +1,9 @@
 .link {
-  display: inline;
-  color: $color-link;
-  text-decoration: none;
+    display: inline;
+    color: $color-link;
+    text-decoration: none;
 
-  &:hover {
-    text-decoration: underline;
-  }
-
+    &:hover {
+        text-decoration: underline;
+    }
 }

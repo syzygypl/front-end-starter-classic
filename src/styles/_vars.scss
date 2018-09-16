@@ -1,9 +1,9 @@
 $breakpoints: (
-  xs: 0,
-  sm: 544px,
-  md: 768px,
-  lg: 1024px,
-  xl: 1280px,
+    xs: 0,
+    sm: 544px,
+    md: 768px,
+    lg: 1024px,
+    xl: 1280px,
 );
 
 $page-min-width: 320px;
@@ -13,22 +13,22 @@ $container-max-width: breakpoint(lg);
 $gutter: 10px;
 
 $container-paddings: (
-  xs: $gutter $gutter*2,
-  md: $gutter*2 $gutter*3,
-  lg: $gutter*3 $gutter*4,
+    xs: $gutter $gutter * 2,
+    md: $gutter * 2 $gutter * 3,
+    lg: $gutter * 3 $gutter * 4,
 );
 
 $font-sizes: (
-  xs: 14px,
-  md: 16px,
+    xs: 14px,
+    md: 16px,
 );
 
 $line-height: 1.5;
 $font-headings: 'Vollkorn SC', serif;
-$font-base: Arial, sans-serif;
+$font-base: 'Arial', sans-serif;
 
-$color-bg: darken(white, 5%);
-$color-bg-odd: white;
+$color-bg: darken(#fff, 5%);
+$color-bg-odd: #fff;
 $color-text: #393435;
 
 $color-reversed-bg: $color-text;
@@ -45,4 +45,4 @@ $header-color-bg: $color-bg-odd;
 $header-color-text: $color-text;
 
 $footer-color-bg: $color-secondary;
-$footer-color-text: white;
+$footer-color-text: #fff;

@@ -1,17 +1,27 @@
+body {
+    display: block;
+}
+
 @import "mixins";
 @import "vars";
 @import "normalize.css/normalize";
 @import "base";
 
+// Placeholders
+@import "components/%svg";
+
 // Layout
+@import "layout/icon-sprite";
 @import "layout/container";
 @import "layout/main";
 @import "layout/header";
 @import "layout/footer";
 
 // Typography
+@import "typo/fonts";
 @import "typo/title";
 @import "typo/text";
 @import "typo/link";
+@import "typo/icon";
 
 // Components
