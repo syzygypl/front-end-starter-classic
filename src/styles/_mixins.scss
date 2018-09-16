@@ -1,84 +1,69 @@
 @mixin media($minWidth, $maxWidth: null) {
-
-  @if type-of($minWidth) != number {
-    $minWidth: map-get($breakpoints, $minWidth);
-  }
-
-  @if ($minWidth != null) {
-    @if ($maxWidth != null) {
-      @if type-of($maxWidth) != number {
-        $maxWidth: map-get($breakpoints, $maxWidth);
-      }
-      @media (min-width: $minWidth) and (max-width: $maxWidth - 1px) {
-        @content;
-      }
-    } @else {
-      @if ($minWidth != 0) {
-        @media (min-width: $minWidth) {
-          @content;
-        }
-      } @else {
-        @content;
-      }
+    @if type-of($minWidth) != number {
+        $minWidth: map-get($breakpoints, $minWidth);
     }
-  } @else {
-    @warn "Unfortunately, no value could be retrieved from #{$minWidth}. "
-        + "Please make sure it is defined in `$breakpoints` map.";
-  }
+
+    @if ($minWidth != null) {
+        @if ($maxWidth != null) {
+            @if type-of($maxWidth) != number {
+                $maxWidth: map-get($breakpoints, $maxWidth);
+            }
+
+            @media (min-width: $minWidth) and (max-width: $maxWidth - 1px) {
+                @content;
+            }
+        } @else {
+            @if ($minWidth != 0) {
+                @media (min-width: $minWidth) {
+                    @content;
+                }
+            } @else {
+                @content;
+            }
+        }
+    } @else {
+        @warn "Unfortunately, no value could be retrieved from #{$minWidth}. Please make sure it is defined in `$breakpoints` map.";
+    }
 }
 
 @function breakpoint($size) {
-  @return map-get($breakpoints, $size);
-}
-
-@function media-prefix($breakpoint) {
-  $prefix: $breakpoint;
-  @if ($prefix == 'xs') { $prefix: null; }
-  @if ($prefix != null) { $prefix: -#{$prefix}; }
-
-  @return $prefix;
+    @return map-get($breakpoints, $size);
 }
 
 @function str-replace($string, $search, $replace: '') {
-  $index: str-index($string, $search);
-  @return if($index,
-          str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace),
-          $string);
+    $index: str-index($string, $search);
+
+    @return if(
+        $index,
+        str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace),
+        $string
+    );
 }
 
 @function svg-url($svg) {
-  @if not str-index($svg, xmlns) {
-    $svg: str-replace($svg, '<svg','<svg xmlns="http://www.w3.org/2000/svg"');
-  }
+    @if not str-index($svg, xmlns) {
+        $svg: str-replace($svg, '<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
+    }
 
-  $encoded:'';
-  $slice: 2000;
-  $index: 0;
-  $loops: ceil(str-length($svg)/$slice);
-  @for $i from 1 through $loops {
-    $chunk: str-slice($svg, $index, $index + $slice - 1);
+    $encoded: '';
+    $slice: 2000;
+    $index: 0;
+    $loops: ceil(str-length($svg) / $slice);
 
-    $chunk: str-replace($chunk, '"', '\'');
-    $chunk: str-replace($chunk, '%', '%25');
-    $chunk: str-replace($chunk, '#', '%23');
-    $chunk: str-replace($chunk, '{', '%7B');
-    $chunk: str-replace($chunk, '}', '%7D');
-    $chunk: str-replace($chunk, '<', '%3C');
-    $chunk: str-replace($chunk, '>', '%3E');
+    @for $i from 1 through $loops {
+        $chunk: str-slice($svg, $index, $index + $slice - 1);
 
-    $encoded: #{$encoded}#{$chunk};
-    $index: $index + $slice;
-  }
+        $chunk: str-replace($chunk, '"', '\'');
+        $chunk: str-replace($chunk, '%', '%25');
+        $chunk: str-replace($chunk, '#', '%23');
+        $chunk: str-replace($chunk, '{', '%7B');
+        $chunk: str-replace($chunk, '}', '%7D');
+        $chunk: str-replace($chunk, '<', '%3C');
+        $chunk: str-replace($chunk, '>', '%3E');
 
-  @return url("data:image/svg+xml,#{$encoded}");
-}
+        $encoded: #{$encoded}#{$chunk};
+        $index: $index + $slice;
+    }
 
-@function sassMapToJS($map) {
-  $ret: '';
-
-  @each $key, $val in $map {
-    $ret: $ret + '"#{$key}": "#{$val}", ';
-  }
-
-  @return '{' + str-slice($ret, 0, -3) + '}';
+    @return url("data:image/svg+xml,#{$encoded}");
 }

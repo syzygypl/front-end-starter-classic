@@ -47,5 +47,18 @@
     "webpack": "^4.14.0",
     "webpack-stream": "^4.0.3",
     "yargs": "^12.0.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^9.0.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
+    "gulp-eslint": "^5.0.0",
+    "stylelint": "^9.5.0",
+    "stylelint-config-syzygy-bem": "^1.1.0",
+    "stylelint-config-syzygy-order": "^1.0.2",
+    "stylelint-config-syzygy-scss": "^1.0.1",
+    "stylelint-scss": "^3.3.0"
   }
 }
