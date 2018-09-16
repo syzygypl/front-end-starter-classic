@@ -22,7 +22,7 @@ module.exports = function (done) {
         `${CONFIG.paths.dist}*/**`,
         `${CONFIG.paths.templates}*/**`,
       ],
-      proxy: process.env.BACKEND_URL || 'front-end-starter.dev',
+      server: CONFIG.paths.dist,
       open: true,
       notify: true,
       ...overrides,
