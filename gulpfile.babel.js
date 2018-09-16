@@ -8,10 +8,14 @@ import { argv } from "yargs";
 
 const ENV = process.env.NODE_ENV || (argv.production && 'production') || 'development';
 
+// CONFIG - START //
+
 export const SRC_RELATIVE_PATH = "src/";
 export const TEMPLATES_RELATIVE_PATH = "src/views/";
 export const DIST_DIRECTORY = ""; // e.g. "frontend"
 export const DIST_RELATIVE_PATH = "web/" + (DIST_DIRECTORY ? `${DIST_DIRECTORY}/` : '');
+
+// CONFIG - END //
 
 const CONFIG = {
   paths: {
