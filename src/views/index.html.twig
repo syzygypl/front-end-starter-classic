@@ -11,7 +11,10 @@
 </head>
 
 <body>
+  <div class="icon-sprite" data-icon-sprite="{{ asset('assets/icons.svg') }}"></div>
+
   {% include '_header.html.twig' %}
+
   <main class="main">
     <div class="container main__container">
       <div class="main__inner">
@@ -21,6 +24,7 @@
       </div>
     </div>
   </main>
+
   {% include '_footer.html.twig' %}
 
   <script src="{{ asset('js/main.js') }}"></script>

@@ -1,0 +1,10 @@
+.icon-sprite {
+    display: block;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+
+    svg {
+        display: none;
+    }
+}
